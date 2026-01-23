@@ -1,24 +1,37 @@
-% GAUSS-SEIDEL METHOD (GENERAL n x n)
-% x=1
-% Y=3
-% Z=2
 clc
 clear
-
-
-A = [ 8 -1 1; 2 12 -1; 3 2 9];     % diagonal dominant matrix
-B = [7; 36; 27];
-[N,~]= size(A);
-X = zeros(N,1);
-tol = 1e-6;
-max_iter = 1000;
-
-for i = 1:max_iter
-    x_old = X;
-    for i = 1:N
-        sum1 = A(i,1:i-1)*X(1:i-1);
-        sum2 = A(i,i+1:N)*x_old(i+1:N);
-        X(i)= (B(i)-sum1-sum2)/A(i,i);
+N=4;
+P=5;
+Total_LU = zeros(N, P);
+Total_GE = zeros(N, P);
+for n = 1:N
+    LU_FE = n*(n-1)*(4*n+1)/6 ;
+    LU_FS = n^2 - n;
+    LU_BS = n^2;
+    GE_FE = n*(n-1)*(4*n+7)/6 ;
+    GE_BS = n^2;
+    for p = 1:P
+        Total_LU(n,p) = LU_FE + p * (LU_FS + LU_BS);
+        Total_GE(n,p) = p * (GE_FE + GE_BS);
+    end
+    figure
+    plot(1:P, Total_GE(n,:),"r*");
+    hold on
+    plot(1:P, Total_LU(n,:),"b*");
+    % ptimes = [3,6,9,12];
+ 
+    % for k = 1: length(ptimes)
+    %     p = ptimes(k);
+    %     figure
+    %     plot(p, Total_GE(n,:),"r*");
+    %     hold on
+    %     plot(p, Total_LU(n,:),"b*");
+    % end
+end
+disp(Total_LU)
+disp(Total_GE)
+% HW calculate the euclidean distance in seidel /eps
+% practice small variations at your own1-sum2)/A(i,i);
     end
     if norm(X-x_old,inf)<tol
         fprintf("convernges in %d iteration\n",i)
