@@ -4,28 +4,32 @@
 % Z=2
 
 A = [ 8 -1 1; 2 12 -1; 3 2 9];     % diagonal dominant matrix
-b = [7; 36; 27];
-
-n = length(b);
-x = zeros(n,1);        % initial guess
+B = [7; 36; 27];
+[~,N]=size(A);
+X = zeros(N,1);   % intial guess
 tol = 1e-6;
-maxIter = 1000;
+max_iter = 1000;
 
-for iter = 1:maxIter
-    x_old = x;
+figure
+hold on
+grid on
 
-    for i = 1:n
-        sum1 = A(i,1:i-1) * x(1:i-1);        % new values
-        sum2 = A(i,i+1:n) * x_old(i+1:n);    % old values
 
-        x(i) = (b(i) - sum1 - sum2) / A(i,i);
+for  j= 1:max_iter
+    OX = X;
+    for i=1:N
+        sum1= A(i,1:i-1)*X(1:i-1);
+        sum2 = A(i,i+1:N)*OX(i+1:N);
+        X(i) = (B(i)-sum1-sum2)/A(i,i);
     end
-
-    % convergence check
-    if norm(x - x_old, inf) < tol
-        fprintf('Converged in %d iterations\n', iter);
+    if norm(X-OX,inf) < tol
+        fprintf("convergence occur at %d iteration\n" , j)
         break
     end
+    
+    plot(1:N, X, '*-', 'DisplayName', ['Iter ' num2str(j)])  % this will plot X upto iteration where convergence occurs
+ 
 end
+legend
 
-x
+X
