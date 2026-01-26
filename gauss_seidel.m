@@ -1,3 +1,4 @@
+% HW calculate the eucidean distance in seidel /eps
 % GAUSS-SEIDEL METHOD (GENERAL n x n)
 % x=1
 % Y=3
@@ -22,13 +23,21 @@ for  j= 1:max_iter
         sum2 = A(i,i+1:N)*OX(i+1:N);
         X(i) = (B(i)-sum1-sum2)/A(i,i);
     end
+    euclid_dist = norm(X - OX, 2)
+     % convergence check using Euclidean distance
+    % if euclid_dist < tol
+    %     fprintf('Converged in %d iterations\n', iter);
+    %     fprintf('Euclidean distance = %.6e\n', euclid_dist);
+    %     break
+    % end
+
     if norm(X-OX,inf) < tol
         fprintf("convergence occur at %d iteration\n" , j)
         break
     end
-    
+
     plot(1:N, X, '*-', 'DisplayName', ['Iter ' num2str(j)])  % this will plot X upto iteration where convergence occurs
- 
+
 end
 legend
 
