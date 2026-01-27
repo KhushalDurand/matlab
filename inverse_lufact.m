@@ -13,4 +13,7 @@ for i = 1:N
 end
 inb_inv
 Ainv
+isequal(round(Ainv),round(inb_inv))
+
+
 
