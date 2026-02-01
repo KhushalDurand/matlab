@@ -1,5 +1,5 @@
 % GAUSS ELIMINATION FOR PARTIAL PIVOT
-%  = 1, y = 3, z = 2
+% x = 1, y = 3, z = 2
 
 A = [2 3 -2; 1 1 1; 3 -1 2];
 B = [7;6;4];
@@ -34,3 +34,4 @@ end
 
 % round(X)
 X
+
