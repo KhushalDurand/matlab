@@ -1,5 +1,5 @@
 % NAIVE GAUSS ELIMINATION
-%  = 1, y = 3, z = 2
+%  x = 1, y = 3, z = 2
 
 A = [2 3 -2; 1 1 1; 3 -1 2];
 B = [7;6;4];
@@ -20,4 +20,5 @@ for i = n-1:-1:1
     X(i)=(B(i)-A(i,i+1:n)*X(i+1:n,:))/A(i,i);
 
 end
+
 X
