@@ -1,6 +1,6 @@
 % LUDecomposition_with_PP
 
-%  = 1, y = 3, z = 2
+% x = 1, y = 3, z = 2
 
 A = [2 3 -2; 1 1 1; 3 -1 2];
 B = [7;6;4];
@@ -47,6 +47,7 @@ end
      X(k)= (Y(k)-A(k,k+1:N)*X(k+1:N))/A(k,k);
  end
  X
+
 
 
 
