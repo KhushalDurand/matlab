@@ -1,13 +1,13 @@
 clear; clc;
 
-%% -------- Physical & Numerical Parameters --------
-Lx = 1;              % Length in x
-Ly = 1;              % Length in y
-Nx = 20;             % Grid points in x
-Ny = 20;             % Grid points in y
-alpha = 0.01;        % Thermal diffusivity
-Nt = 2000;           % Time steps
-dt = 0.001;          % Time step size
+
+Lx = 1;             
+Ly = 1;              
+Nx = 20;             
+Ny = 20;         
+alpha = 0.01;  
+Nt = 2000;          
+dt = 0.001;         
 
 dx = Lx/(Nx-1);
 dy = Ly/(Ny-1);
@@ -20,16 +20,16 @@ if lx + ly > 0.5
     error('Stability condition violated: reduce dt');
 end
 
-%% -------- Initialization --------
+
 T = zeros(Ny,Nx);    % (row = y, column = x)
 
 % Boundary conditions (Dirichlet)
-T(:,1)      = 50;    % Left
-T(:,Nx)     = 80;    % Right
-T(1,:)      = 50;    % Bottom
-T(Ny,:)     = 150;   % Top
+T(:,1)      = 50;  
+T(:,Nx)     = 80;  
+T(1,:)      = 50; 
+T(Ny,:)     = 150; 
 
-%% -------- Time Marching --------
+%% Time Marching 
 for t = 1:Nt
     T_old = T;
 
@@ -42,7 +42,7 @@ for t = 1:Nt
     end
 end
 
-%% -------- Grid for Plotting --------
+% plot
 x = linspace(0,Lx,Nx);
 y = linspace(0,Ly,Ny);
 [X,Y] = meshgrid(x,y);
