@@ -7,21 +7,21 @@
 clc
 clear
 
-L = 1.0;          % Length of rod (m)
-k = 0.01;         % Thermal diffusivity (m^2/s)
+L = 1.0;         
+k = 0.01;         
 
 %% Numerical parameters
-Nx = 21;                  % Number of spatial nodes
-dx = L/(Nx-1);            % Spatial step
+Nx = 21;                 
+dx = L/(Nx-1);            
 dt = 0.4*dx^2/k;          % Time step (chosen to satisfy stability) dt_max -> 0.5
-Nt = 1000;                 % Number of time steps
+Nt = 1000;               
 
-T = zeros(Nx,1);          % Initial temperature = 0 everywhere
-T(:) = 20;                % Uniform initial temperature (°C)
+T = zeros(Nx,1);        
+T(:) = 20;               
 T(1)= 400;
 T(Nx)= 300;
 
-lembda = k*dt/dx^2;            % Stability parameter
+lembda = k*dt/dx^2;           
 
 % Check stability
 if lembda > 0.5
@@ -45,6 +45,7 @@ xlabel('Position x (m)');
 ylabel('Temperature T (°C)');
 title('1D Unsteady Heat Conduction (Explicit Method)');
 grid on;
+
 
 
 
