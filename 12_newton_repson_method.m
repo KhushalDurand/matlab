@@ -17,8 +17,10 @@ A22=4*y-4*x;
 A =[A11 A12; A21 A22];
 
 end
-
+clc;
+clear;
 max_iter=100;
+tol = 1e-6;
 X = [1;1];
 
 for i=1:max_iter
@@ -35,5 +37,7 @@ for i=1:max_iter
         return
     end
 end
+
+fprintf('Method did NOT converge in %d iterations\n', max_iter);
 
 fprintf('Method did NOT converge in %d iterations\n', max_iter);
