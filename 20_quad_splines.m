@@ -9,7 +9,7 @@ h = diff(x);
 
 %% compute matrix for b
 
-A = zeros(n-1,n);
+A = zeros(n-1,n-1);
 B = zeros(n-1,1);
 A(1,1)=h(1);
 B(1,1)=y(2)-y(1);
