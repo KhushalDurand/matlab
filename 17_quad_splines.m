@@ -23,6 +23,9 @@ end
 %% solve for b
 
 b = pinv(A)*B;
+first = b(1);
+b=[first;b];
+
 
 %% compute c
 
