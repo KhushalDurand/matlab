@@ -31,3 +31,37 @@ for i = 1:n-1
     fprintf('S%d(x) = %f + %f(x-%f) + %f(x-%f)^2\n\n', ...
         i,a(i),b(i),x(i),c(i),x(i));
 end
+
+
+clc;
+clear;
+
+x = linspace(-1,1,10);
+y = 1./(1+25.*x.*x);
+
+n = length(x);
+h = diff(x);
+
+%% matrix for b
+
+A = zeros(n-1,n);
+B = zeros(n-1,1);
+
+for i = 1:n-1
+    A(i,i)   = h(i);
+    A(i,i+1) = h(i);
+    B(i) = 2*(y(i+1)-y(i));
+end
+
+%% solve b
+b = pinv(A)*B;     % because matrix is rectangular
+
+%% compute c
+
+c = zeros(n-1,1);
+
+for i = 1:n-1
+    c(i) = (b(i+1)-b(i))/(2*h(i));
+end
+
+a = y(1:n-1)';
