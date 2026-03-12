@@ -1,11 +1,10 @@
 clc;
 clear;
 
-% Data points
-x = [3 4.5 7.0 9.0];
-y = [2.5 1.0 2.5 0.5];
+x = linspace(-1,1,10);
+y = 1./(1+25.*x.*x);
 
-n = length(x);
+n  = length(x);
 h = diff(x);
 
 a = y(1:n-1);     % a_i
