@@ -4,57 +4,23 @@ clear;
 x = linspace(-1,1,10);
 y = 1./(1+25.*x.*x);
 
-n  = length(x);
-h = diff(x);
-
-a = y(1:n-1);     % a_i
-b = zeros(n-1,1);
-c = zeros(n-1,1);
-
-% Natural condition
-c(1) = 0;
-
-% Compute coefficients
-for i = 1:n-1
-    if i == 1
-        b(i) = (y(i+1)-y(i))/h(i);
-    else
-        b(i) = b(i-1) + 2*c(i-1)*h(i-1);
-    end
-    
-    c(i) = ((y(i+1)-y(i)) - b(i)*h(i)) / (h(i)^2);
-end
-
-% Display splines
-for i = 1:n-1
-    fprintf('Spline %d on [%f , %f]\n',i,x(i),x(i+1));
-    fprintf('S%d(x) = %f + %f(x-%f) + %f(x-%f)^2\n\n', ...
-        i,a(i),b(i),x(i),c(i),x(i));
-end
-
-
-clc;
-clear;
-
-x = linspace(-1,1,10);
-y = 1./(1+25.*x.*x);
-
 n = length(x);
 h = diff(x);
 
-%% matrix for b
+%% compute matrix for b
 
 A = zeros(n-1,n);
 B = zeros(n-1,1);
 
 for i = 1:n-1
-    A(i,i)   = h(i);
+    A(i,i) = h(i);
     A(i,i+1) = h(i);
     B(i) = 2*(y(i+1)-y(i));
 end
 
-%% solve b
-b = pinv(A)*B;     % because matrix is rectangular
+%% solve for b
+
+b = pinv(A)*B;
 
 %% compute c
 
@@ -65,3 +31,27 @@ for i = 1:n-1
 end
 
 a = y(1:n-1)';
+
+%% generate interpolation points
+
+xp = linspace(-1,1,200);
+yp = zeros(size(xp));
+
+for j = 1:length(xp)
+    for i = 1:n-1
+        if xp(j) >= x(i) && xp(j) <= x(i+1)
+            dx = xp(j) - x(i);
+            yp(j) = a(i) + b(i)*dx + c(i)*dx^2;
+            break
+        end
+    end
+end
+
+%% plot
+
+plot(xp,yp,'r','LineWidth',1.5)
+hold on
+plot(x,y,'ob','MarkerFaceColor','b')
+grid on
+title('Quadratic Spline Interpolation')
+legend('Quadratic spline','Data points')
