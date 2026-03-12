@@ -11,10 +11,12 @@ h = diff(x);
 
 A = zeros(n-1,n);
 B = zeros(n-1,1);
+A(1,1)=h(1);
+B(1,1)=y(2)-y(1);
 
-for i = 1:n-1
+for i = 2:n-1
     A(i,i) = h(i);
-    A(i,i+1) = h(i);
+    A(i,i-1) = h(i);
     B(i) = 2*(y(i+1)-y(i));
 end
 
